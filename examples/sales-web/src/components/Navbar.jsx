@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { LeafMark } from '@verdant/ui'
 import { useCart } from '../context/CartContext.jsx'
-import Brand from './Brand.jsx'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -19,7 +19,7 @@ export default function Navbar() {
     <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
       <div className="container nav__inner">
         <Link to="/" className="nav__brand" style={{ color: 'var(--forest-700)' }}>
-          <Brand size={26} />
+          <LeafMark size={26} />
           Verdant
         </Link>
 

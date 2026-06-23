@@ -1,8 +1,7 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion'
-import MediaPlaceholder from './MediaPlaceholder.jsx'
-import { formatPrice } from '../data/products.js'
+import { MediaPlaceholder, formatPrice } from '@verdant/ui'
 
 /**
  * ProductCard — hover 時依游標位置做 3D 傾斜，並有光澤掃過 + 進場動畫。

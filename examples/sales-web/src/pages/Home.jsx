@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import MediaPlaceholder from '../components/MediaPlaceholder.jsx'
-import MagneticButton from '../components/MagneticButton.jsx'
-import Parallax from '../components/Parallax.jsx'
-import Reveal from '../components/Reveal.jsx'
-import SunFlare from '../components/SunFlare.jsx'
+import {
+  MediaPlaceholder,
+  MagneticButton,
+  Parallax,
+  Reveal,
+  SunFlare,
+  SectionDivider,
+} from '@verdant/ui'
 import ProductCard from '../components/ProductCard.jsx'
-import SectionDivider from '../components/SectionDivider.jsx'
 import { products } from '../data/products.js'
 
 const TITLE = ['走進', '一座', '可被', '收藏', '的森林']
@@ -63,7 +65,7 @@ export default function Home() {
                   transition={{ duration: 0.9, delay: 0.2 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                 >
                   {word}
-                  {i < TITLE.length - 1 ? ' ' : ''}
+                  {i < TITLE.length - 1 ? ' ' : ''}
                 </motion.span>
               </span>
             ))}

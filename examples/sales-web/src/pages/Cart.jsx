@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import MediaPlaceholder from '../components/MediaPlaceholder.jsx'
-import MagneticButton from '../components/MagneticButton.jsx'
-import Reveal from '../components/Reveal.jsx'
+import { MediaPlaceholder, MagneticButton, Reveal, formatPrice } from '@verdant/ui'
 import { useCart } from '../context/CartContext.jsx'
-import { getProduct, formatPrice } from '../data/products.js'
+import { getProduct } from '../data/products.js'
 
 const SHIPPING = 120
 const FREE_OVER = 1500

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import Brand from './Brand.jsx'
+import { LeafMark } from '@verdant/ui'
 
 export default function Footer() {
   return (
@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="footer__grid">
           <div>
             <div className="footer__brand" style={{ color: 'var(--cream-50)' }}>
-              <Brand size={28} />
+              <LeafMark size={28} />
               Verdant
             </div>
             <p>

@@ -167,6 +167,3 @@ export const products = [
 ]
 
 export const getProduct = (id) => products.find((p) => p.id === id)
-
-export const formatPrice = (n) =>
-  'NT$' + n.toLocaleString('zh-TW', { maximumFractionDigits: 0 })

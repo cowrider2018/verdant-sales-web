@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Reveal } from '@verdant/ui'
 import ProductCard from '../components/ProductCard.jsx'
-import Reveal from '../components/Reveal.jsx'
 import { products, categories } from '../data/products.js'
 
 export default function Products() {

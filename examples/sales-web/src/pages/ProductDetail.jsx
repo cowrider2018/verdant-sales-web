@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import MediaPlaceholder from '../components/MediaPlaceholder.jsx'
-import MagneticButton from '../components/MagneticButton.jsx'
-import Reveal from '../components/Reveal.jsx'
+import { MediaPlaceholder, MagneticButton, Reveal, formatPrice } from '@verdant/ui'
 import ProductCard from '../components/ProductCard.jsx'
-import { getProduct, products, formatPrice } from '../data/products.js'
+import { getProduct, products } from '../data/products.js'
 import { useCart } from '../context/CartContext.jsx'
 
 export default function ProductDetail() {

@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { LeafMark } from '@verdant/ui'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
-import Brand from './components/Brand.jsx'
 import { useCart } from './context/CartContext.jsx'
 import Home from './pages/Home.jsx'
 import Products from './pages/Products.jsx'
@@ -45,7 +45,7 @@ function Toast() {
           transition={{ type: 'spring', stiffness: 360, damping: 24 }}
         >
           <span style={{ color: 'var(--gold-300)' }}>
-            <Brand size={18} />
+            <LeafMark size={18} />
           </span>
           {toast}
         </motion.div>
