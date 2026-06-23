@@ -951,10 +951,11 @@ h4 {
 
 /* ============ Sun flare (跟隨游標偏轉的太陽折射光暈) ============ */
 .flare {
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 9998;
+  /* 介於 scrim(1) 與 hero__content(2) 之間，疊在主視覺上、不擋文字 */
+  z-index: 1;
   overflow: hidden;
   mix-blend-mode: screen;
   will-change: transform;

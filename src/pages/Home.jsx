@@ -4,6 +4,7 @@ import MediaPlaceholder from '../components/MediaPlaceholder.jsx'
 import MagneticButton from '../components/MagneticButton.jsx'
 import Parallax from '../components/Parallax.jsx'
 import Reveal from '../components/Reveal.jsx'
+import SunFlare from '../components/SunFlare.jsx'
 import ProductCard from '../components/ProductCard.jsx'
 import SectionDivider from '../components/SectionDivider.jsx'
 import { products } from '../data/products.js'
@@ -37,6 +38,9 @@ export default function Home() {
           </Parallax>
         </div>
         <div className="hero__scrim" />
+
+        {/* 光暈僅在主視覺圖片區域顯示，由 .hero 的 overflow:hidden 裁切 */}
+        <SunFlare />
 
         <div className="container hero__content">
           <motion.span

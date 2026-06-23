@@ -4,11 +4,14 @@ import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } fro
 /**
  * SunFlare — 跟隨滑鼠游標偏轉的「一整列太陽折射光暈」（鏡頭眩光 / lens flare）。
  *
- * 物理直覺：游標 = 光源方向控制點。整條折射軸沿著「游標 ↔ 螢幕中心」延伸，
+ * 物理直覺：游標 = 光源方向控制點。整條折射軸沿著「游標 ↔ 容器中心」延伸，
  * 但游標並非軸的頂點 —— 軸線會大幅延伸超出游標（負 t 側），游標只決定偏轉方向。
- * 游標移動時，整列光環繞著畫面中心擺盪、滑移，產生折射光暈偏轉的效果。
+ * 游標移動時，整列光環繞著容器中心擺盪、滑移，產生折射光暈偏轉的效果。
  *
- * 每顆 ghost 的位置：P = L + t·(C − L)，其中 L 為游標、C 為畫面中心。
+ * 範圍：此元件渲染於 Hero 主視覺內，座標一律相對所在容器計算，
+ * 因此光暈只在主視覺圖片區域顯示，並由容器的 overflow:hidden 裁切（其他地方遮罩）。
+ *
+ * 每顆 ghost 的位置：P = L + t·(C − L)，其中 L 為游標、C 為容器中心（皆為容器相對座標）。
  *   t=0 在游標、t=1 在中心、t>1 越過中心到對側、t<0 在游標「後方」(延伸超出游標)。
  * 因為是逐分量線性內插，x 只依賴 Lx、y 只依賴 Ly，可分離計算。
  *
@@ -61,6 +64,7 @@ function Ghost({ sx, sy, center, t, size, color, ring, opacity, blur }) {
 
 export default function SunFlare() {
   const reduce = useReducedMotion()
+  const wrapRef = useRef(null)
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
   // 較軟的彈簧 → 移動時整列光環有拖曳擺盪的偏轉感
@@ -70,23 +74,37 @@ export default function SunFlare() {
 
   useEffect(() => {
     if (reduce) return
-    const setCenter = () => {
-      center.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 }
+    const el = wrapRef.current
+    if (!el) return
+
+    // 折射軸心 = 視窗中心，但換算成容器相對座標。
+    // （容器可能比視窗高/有捲動，故不能用容器幾何中心，否則整列光環會被往容器正中央拉而偏移）
+    const recenter = () => {
+      const r = el.getBoundingClientRect()
+      center.current = {
+        x: window.innerWidth / 2 - r.left,
+        y: window.innerHeight / 2 - r.top,
+      }
+      return r
     }
-    setCenter()
+    recenter()
     // 初始停在中心，避免從角落甩入
     mx.set(center.current.x)
     my.set(center.current.y)
 
+    // 游標換算成容器相對座標；游標離開主視覺時，光暈會被 overflow 裁掉
     const move = (e) => {
-      mx.set(e.clientX)
-      my.set(e.clientY)
+      const r = recenter()
+      mx.set(e.clientX - r.left)
+      my.set(e.clientY - r.top)
     }
     window.addEventListener('pointermove', move)
-    window.addEventListener('resize', setCenter)
+    window.addEventListener('scroll', recenter, { passive: true })
+    window.addEventListener('resize', recenter)
     return () => {
       window.removeEventListener('pointermove', move)
-      window.removeEventListener('resize', setCenter)
+      window.removeEventListener('scroll', recenter)
+      window.removeEventListener('resize', recenter)
     }
   }, [mx, my, reduce])
 
@@ -98,7 +116,7 @@ export default function SunFlare() {
   }
 
   return (
-    <div className="flare" aria-hidden="true">
+    <div className="flare" ref={wrapRef} aria-hidden="true">
       {GHOSTS.map((g, i) => (
         <Ghost key={i} sx={sx} sy={sy} center={center} {...g} />
       ))}

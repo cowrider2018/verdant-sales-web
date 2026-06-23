@@ -3,7 +3,6 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
-import SunFlare from './components/SunFlare.jsx'
 import Brand from './components/Brand.jsx'
 import { useCart } from './context/CartContext.jsx'
 import Home from './pages/Home.jsx'
@@ -59,8 +58,6 @@ export default function App() {
   const location = useLocation()
   return (
     <>
-      {/* 光暈僅在首頁顯示，避免全站審美疲勞 */}
-      {location.pathname === '/' && <SunFlare />}
       <Navbar />
       <ScrollToTop />
       <AnimatePresence mode="wait">
