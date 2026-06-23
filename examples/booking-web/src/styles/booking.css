@@ -127,7 +127,7 @@
 .searchbar {
   position: relative;
   z-index: 5;
-  margin-top: -2.5rem;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
   display: flex;
   align-items: flex-end;
   gap: 1.2rem;
@@ -298,32 +298,7 @@
   font-weight: 400;
 }
 
-/* ============ Stat band（取代 sales 風格的 story 圖+floaty） ============ */
-.statband {
-  background: var(--forest-900);
-  color: var(--cream-50);
-  border-radius: var(--radius-lg);
-  padding: clamp(2.2rem, 5vw, 3.6rem) clamp(1.8rem, 5vw, 3.6rem);
-  display: grid;
-  grid-template-columns: 1.2fr 1.5fr;
-  gap: clamp(1.6rem, 4vw, 3rem);
-  align-items: center;
-}
-.statband__lead h2 {
-  color: var(--cream-50);
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-}
-.statband__lead p {
-  margin-top: 0.9rem;
-  color: rgba(244, 241, 233, 0.8);
-  max-width: 34ch;
-}
-.statband__stats {
-  display: flex;
-  gap: clamp(1.6rem, 4vw, 3rem);
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
+/* ============ Stats（整合於底部 CTA band） ============ */
 .stat__num {
   font-family: var(--font-serif);
   font-size: 2.4rem;
@@ -334,12 +309,6 @@
   font-size: 0.82rem;
   color: var(--ink-faint);
   letter-spacing: 0.04em;
-}
-.statband .stat__num {
-  color: var(--gold-300);
-}
-.statband .stat__label {
-  color: rgba(244, 241, 233, 0.65);
 }
 
 /* ============ Day timeline（森林一日，取代 4:5 圖磚） ============ */
@@ -443,7 +412,7 @@
   z-index: 2;
   color: var(--cream-50);
   padding: clamp(2.5rem, 6vw, 5rem);
-  max-width: 40rem;
+  max-width: 46rem;
 }
 .cta-band__inner h2 {
   color: var(--cream-50);
@@ -452,6 +421,19 @@
 .cta-band__inner p {
   margin-top: 1rem;
   color: rgba(244, 241, 233, 0.85);
+}
+.cta-band__stats {
+  margin-top: 2rem;
+  display: flex;
+  gap: clamp(1.6rem, 5vw, 3rem);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cta-band .stat__num {
+  color: var(--gold-300);
+}
+.cta-band .stat__label {
+  color: rgba(244, 241, 233, 0.7);
 }
 
 /* ============ Footer ============ */
@@ -838,7 +820,6 @@
 @media (max-width: 900px) {
   .bhero,
   .feature-row,
-  .statband,
   .rdetail-body,
   .bflow {
     grid-template-columns: 1fr;
@@ -853,9 +834,6 @@
   }
   .searchbar__go {
     width: 100%;
-  }
-  .statband__stats {
-    justify-content: flex-start;
   }
   .bookbox,
   .bflow__summary {

@@ -130,31 +130,6 @@ export default function Home() {
 
       <SectionDivider />
 
-      {/* ===== Stat band ===== */}
-      <section className="section container" id="story">
-        <Reveal className="statband">
-          <div className="statband__lead">
-            <span className="eyebrow" style={{ color: 'var(--gold-300)' }}>關於旅宿</span>
-            <h2 className="serif">把房子，蓋進森林的縫隙裡</h2>
-            <p>不砍樹，而是讓建築退讓給森林——沿著既有的樹與石，把每一間房安放進林子的縫隙。</p>
-          </div>
-          <div className="statband__stats">
-            <div>
-              <div className="stat__num">6</div>
-              <div className="stat__label">獨立房型</div>
-            </div>
-            <div>
-              <div className="stat__num">12</div>
-              <div className="stat__label">公頃森林</div>
-            </div>
-            <div>
-              <div className="stat__num">4.9</div>
-              <div className="stat__label">旅客評分</div>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
       {/* ===== Day timeline ===== */}
       <section className="section container" id="facilities">
         <div className="sec-head">
@@ -204,9 +179,23 @@ export default function Home() {
           </div>
           <div className="cta-band__scrim" />
           <div className="cta-band__inner">
-            <span className="eyebrow" style={{ color: 'var(--gold-300)' }}>準備好了嗎</span>
-            <h2 className="serif">讓森林替你預留一夜寧靜</h2>
-            <p>即時查詢空房與房價，三步驟完成預約。把行李交給山，把日常留在山腳。</p>
+            <span className="eyebrow" style={{ color: 'var(--gold-300)' }}>關於旅宿</span>
+            <h2 className="serif">把房子，蓋進森林的縫隙裡</h2>
+            <p>不砍樹，而是讓建築退讓給森林——沿著既有的樹與石，把每一間房安放進林子的縫隙。即時查詢空房與房價，三步驟完成預約。</p>
+            <div className="cta-band__stats">
+              <div>
+                <div className="stat__num">6</div>
+                <div className="stat__label">獨立房型</div>
+              </div>
+              <div>
+                <div className="stat__num">12</div>
+                <div className="stat__label">公頃森林</div>
+              </div>
+              <div>
+                <div className="stat__num">4.9</div>
+                <div className="stat__label">旅客評分</div>
+              </div>
+            </div>
             <div style={{ marginTop: '2rem' }}>
               <Link to="/rooms">
                 <MagneticButton className="btn btn--gold">開始預約</MagneticButton>
