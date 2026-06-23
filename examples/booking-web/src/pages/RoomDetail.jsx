@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { MediaPlaceholder, MagneticButton, Reveal } from '@verdant/ui'
+import { MediaPlaceholder, MagneticButton, Reveal, formatPrice } from '@verdant/ui'
 import DatePicker from '../components/DatePicker.jsx'
-import BookingSummary from '../components/BookingSummary.jsx'
 import RoomCard from '../components/RoomCard.jsx'
 import { getRoom, rooms } from '../data/rooms.js'
 import { useBooking } from '../context/BookingContext.jsx'
@@ -30,7 +29,7 @@ export default function RoomDetail() {
 
   const [mw, mh] = room.placeholders.main
   const guests = Math.min(draft.guests, room.capacity)
-  const related = rooms.filter((r) => r.id !== room.id).slice(0, 3)
+  const related = rooms.filter((r) => r.id !== room.id).slice(0, 4)
 
   const handleReserve = () => {
     reserve(
@@ -43,32 +42,32 @@ export default function RoomDetail() {
   return (
     <>
       <section className="container" style={{ paddingTop: '8rem', paddingBottom: '4rem' }}>
-        <div className="pd">
-          {/* Gallery */}
-          <div className="pd__gallery">
+        {/* ===== Top gallery（全寬主圖 + 橫向縮圖） ===== */}
+        <div className="rdetail">
+          <div className="rdetail__lead">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeImg}
-                initial={{ opacity: 0, scale: 0.98 }}
+                initial={{ opacity: 0, scale: 0.99 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.02 }}
+                exit={{ opacity: 0, scale: 1.01 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               >
                 <MediaPlaceholder
                   type="image"
                   width={mw}
                   height={mh}
-                  ratio="4 / 3"
+                  ratio="16 / 9"
                   label={`${room.name}・主圖 ${activeImg + 1}`}
                 />
               </motion.div>
             </AnimatePresence>
 
-            <div className="pd__thumbs">
+            <div className="rdetail__thumbs">
               {room.placeholders.thumbs.map(([tw, th], i) => (
                 <button
                   key={i}
-                  className={`pd__thumb ${i === activeImg ? 'pd__thumb--active' : ''}`}
+                  className={`rdetail__thumb ${i === activeImg ? 'rdetail__thumb--active' : ''}`}
                   onClick={() => setActiveImg(i)}
                   aria-label={`縮圖 ${i + 1}`}
                 >
@@ -77,9 +76,11 @@ export default function RoomDetail() {
               ))}
             </div>
           </div>
+        </div>
 
-          {/* Info */}
-          <div>
+        {/* ===== Body：左資訊 / 右 sticky 訂房卡 ===== */}
+        <div className="rdetail-body">
+          <div className="rdetail__info">
             <Reveal>
               <span className="pd__cat">{room.type} · 可住 {room.capacity} 人 · {room.size}</span>
               <h1 className="pd__title">{room.name}</h1>
@@ -104,16 +105,24 @@ export default function RoomDetail() {
                 ))}
               </div>
             </Reveal>
+          </div>
 
-            <Reveal delay={0.15}>
+          <aside>
+            <div className="bookbox">
+              <div className="bookbox__price">
+                <span className="price">
+                  {formatPrice(room.pricePerNight)} <small>/ 晚</small>
+                </span>
+                <span className="pd__cat">可住 {room.capacity} 人</span>
+              </div>
+              <DatePicker
+                checkIn={draft.checkIn}
+                checkOut={draft.checkOut}
+                guests={guests}
+                maxGuests={room.capacity}
+                onChange={update}
+              />
               <div className="roomd__book">
-                <DatePicker
-                  checkIn={draft.checkIn}
-                  checkOut={draft.checkOut}
-                  guests={guests}
-                  maxGuests={room.capacity}
-                  onChange={update}
-                />
                 <MagneticButton
                   className="btn btn--primary btn--block"
                   onClick={handleReserve}
@@ -123,12 +132,12 @@ export default function RoomDetail() {
                   {nights > 0 ? `加入預約 · 共 ${nights} 晚` : '請先選擇入住日期'}
                 </MagneticButton>
               </div>
-            </Reveal>
-          </div>
+            </div>
+          </aside>
         </div>
       </section>
 
-      {/* Related rooms */}
+      {/* ===== Related rooms rail ===== */}
       <section className="container section">
         <div className="sec-head">
           <Reveal>
@@ -137,7 +146,7 @@ export default function RoomDetail() {
           </Reveal>
         </div>
         <motion.div
-          className="grid grid--feature"
+          className="rail"
           variants={{ show: { transition: { staggerChildren: 0.1 } } }}
           initial="hidden"
           whileInView="show"

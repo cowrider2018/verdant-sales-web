@@ -75,12 +75,61 @@ export default function Booking() {
     <section className="container" style={{ paddingTop: '8rem', paddingBottom: '5rem' }}>
       <Reveal>
         <span className="eyebrow">完成預約</span>
-        <h1 style={{ fontSize: 'clamp(2.2rem, 5vw, 3.4rem)', marginBottom: '2rem' }}>
-          確認你的森林假期
-        </h1>
+        <h1 style={{ fontSize: 'clamp(2.2rem, 5vw, 3.4rem)' }}>確認你的森林假期</h1>
       </Reveal>
 
-      <form className="cart" onSubmit={handleConfirm}>
+      {/* 流程步驟 */}
+      <div className="steps">
+        <span className="step">
+          <span className="step__num">1</span>選房
+        </span>
+        <span className="step__sep" />
+        <span className="step step--active">
+          <span className="step__num">2</span>填資料
+        </span>
+        <span className="step__sep" />
+        <span className="step">
+          <span className="step__num">3</span>完成
+        </span>
+      </div>
+
+      <form className="bflow" onSubmit={handleConfirm}>
+        {/* 左：sticky 摘要 */}
+        <aside className="bflow__summary">
+          <div className="bookbox">
+            <BookingSummary
+              room={room}
+              checkIn={draft.checkIn}
+              checkOut={draft.checkOut}
+              guests={guests}
+              nights={nights}
+            />
+            <div style={{ marginTop: '1.5rem' }}>
+              <MagneticButton
+                className="btn btn--gold btn--block"
+                type="submit"
+                disabled={!canConfirm}
+                style={!canConfirm ? { opacity: 0.5, cursor: 'not-allowed' } : undefined}
+              >
+                確認預約
+              </MagneticButton>
+            </div>
+            {!canConfirm && (
+              <p style={{ fontSize: '0.8rem', color: 'var(--ink-faint)', marginTop: '0.8rem', textAlign: 'center' }}>
+                {nights <= 0 ? '請選擇入住與退房日期' : '請填寫姓名與電子信箱'}
+              </p>
+            )}
+            <Link
+              to="/rooms"
+              className="btn btn--ghost btn--block"
+              style={{ marginTop: '0.8rem' }}
+            >
+              繼續挑房
+            </Link>
+          </div>
+        </aside>
+
+        {/* 右：表單 */}
         <div>
           {/* 可再次調整日期 / 人數 */}
           <div className="booking__block">
@@ -135,39 +184,6 @@ export default function Booking() {
             </div>
           </div>
         </div>
-
-        {/* Summary aside */}
-        <aside className="cart__summary">
-          <BookingSummary
-            room={room}
-            checkIn={draft.checkIn}
-            checkOut={draft.checkOut}
-            guests={guests}
-            nights={nights}
-          />
-          <div style={{ marginTop: '1.5rem' }}>
-            <MagneticButton
-              className="btn btn--gold btn--block"
-              type="submit"
-              disabled={!canConfirm}
-              style={!canConfirm ? { opacity: 0.5, cursor: 'not-allowed' } : undefined}
-            >
-              確認預約
-            </MagneticButton>
-          </div>
-          {!canConfirm && (
-            <p style={{ fontSize: '0.8rem', color: 'var(--ink-faint)', marginTop: '0.8rem', textAlign: 'center' }}>
-              {nights <= 0 ? '請選擇入住與退房日期' : '請填寫姓名與電子信箱'}
-            </p>
-          )}
-          <Link
-            to="/rooms"
-            className="btn btn--ghost btn--block"
-            style={{ marginTop: '0.8rem' }}
-          >
-            繼續挑房
-          </Link>
-        </aside>
       </form>
     </section>
   )

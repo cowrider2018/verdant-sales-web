@@ -2,6 +2,9 @@
    booking-web — 森林旅宿示範站專屬樣式
    基底（reset、.btn、.ph、.container、.sec-head、.grid、.chip、.page-head…）
    來自 @verdant/ui/styles/primitives.css
+
+   版位刻意與 sales-web 區隔：分割式主視覺 + 訂房搜尋列、房型左右
+   交錯大圖列、森林一日時間軸、入住流程步驟，色彩與元件沿用同一森林主題。
    ============================================================ */
 
 /* ============ Navbar ============ */
@@ -80,86 +83,128 @@
   background: var(--forest-900);
 }
 
-/* ============ Hero ============ */
-.hero {
-  position: relative;
-  min-height: 100svh;
-  display: flex;
+/* ============ Split hero ============ */
+.bhero {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
   align-items: center;
-  overflow: hidden;
-  padding-top: 6rem;
+  padding-top: clamp(7rem, 12vw, 10rem);
 }
-.hero__media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+.bhero__copy {
+  max-width: 34rem;
 }
-.hero__media .ph {
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
-  border: none;
+.bhero__copy h1 {
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.02;
+  margin-top: 1rem;
 }
-.hero__scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(
-    105deg,
-    rgba(43, 54, 46, 0.82) 0%,
-    rgba(43, 54, 46, 0.55) 45%,
-    rgba(43, 54, 46, 0.2) 100%
-  );
+.bhero__lede {
+  margin-top: 1.4rem;
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  color: var(--ink-soft);
+  max-width: 36ch;
 }
-.hero__content {
-  position: relative;
-  z-index: 2;
-  color: var(--cream-50);
-  max-width: 760px;
-}
-.hero__title {
-  color: var(--cream-50);
-  font-size: clamp(2.8rem, 8vw, 6rem);
-  font-weight: 600;
-  line-height: 0.98;
-}
-.hero__title .word {
-  display: inline-block;
-}
-.hero__lede {
-  margin-top: 1.6rem;
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  max-width: 38ch;
-  color: rgba(244, 241, 233, 0.88);
-}
-.hero__actions {
-  margin-top: 2.4rem;
+.bhero__actions {
+  margin-top: 2rem;
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
 }
-.hero__scroll {
-  position: absolute;
-  z-index: 2;
-  left: 50%;
-  bottom: 2rem;
-  transform: translateX(-50%);
-  color: rgba(244, 241, 233, 0.7);
-  font-size: 0.72rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
+.bhero__media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  isolation: isolate;
 }
-.hero__scroll span {
-  width: 1px;
-  height: 46px;
-  background: linear-gradient(rgba(244, 241, 233, 0.7), transparent);
+.bhero__media .ph {
+  border-radius: 0;
+  border: none;
 }
 
-/* ============ Room cards ============ */
+/* ============ Booking search bar（懸浮壓在 hero 底緣） ============ */
+.searchbar {
+  position: relative;
+  z-index: 5;
+  margin-top: -2.5rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.2rem;
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 1.4rem 1.5rem;
+}
+.searchbar .datepick {
+  flex: 1;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.searchbar .datepick__nights {
+  display: none;
+}
+.searchbar__go {
+  white-space: nowrap;
+}
+
+/* ============ Editorial feature rows（房型左右交錯大圖） ============ */
+.feature-rows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 7vw, 6rem);
+}
+.feature-row {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+.feature-row--rev .feature-row__media {
+  order: 2;
+}
+.feature-row__media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.feature-row__media .ph {
+  border-radius: 0;
+  border: none;
+  transition: transform 0.8s var(--ease-soft);
+}
+.feature-row:hover .feature-row__media .ph {
+  transform: scale(1.04);
+}
+.feature-row__cat {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--moss-600);
+}
+.feature-row__name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+.feature-row__blurb {
+  margin-top: 0.9rem;
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  max-width: 42ch;
+}
+.feature-row__foot {
+  margin-top: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ============ Room cards（用於相關房型 rail） ============ */
 .card {
   position: relative;
   background: var(--paper);
@@ -253,38 +298,31 @@
   font-weight: 400;
 }
 
-/* ============ Story / parallax ============ */
-.story {
+/* ============ Stat band（取代 sales 風格的 story 圖+floaty） ============ */
+.statband {
+  background: var(--forest-900);
+  color: var(--cream-50);
+  border-radius: var(--radius-lg);
+  padding: clamp(2.2rem, 5vw, 3.6rem) clamp(1.8rem, 5vw, 3.6rem);
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: 1.2fr 1.5fr;
+  gap: clamp(1.6rem, 4vw, 3rem);
   align-items: center;
 }
-.story__media {
-  position: relative;
+.statband__lead h2 {
+  color: var(--cream-50);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
 }
-.story__media .floaty {
-  position: absolute;
-  z-index: 3;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  width: 46%;
-  right: -8%;
-  bottom: -10%;
+.statband__lead p {
+  margin-top: 0.9rem;
+  color: rgba(244, 241, 233, 0.8);
+  max-width: 34ch;
 }
-.story__text h2 {
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
-}
-.story__text p {
-  margin-top: 1.2rem;
-  color: var(--ink-soft);
-  font-size: 1.05rem;
-}
-.story__stats {
-  margin-top: 2.4rem;
+.statband__stats {
   display: flex;
-  gap: 2.5rem;
+  gap: clamp(1.6rem, 4vw, 3rem);
   flex-wrap: wrap;
+  justify-content: flex-end;
 }
 .stat__num {
   font-family: var(--font-serif);
@@ -297,71 +335,123 @@
   color: var(--ink-faint);
   letter-spacing: 0.04em;
 }
-
-/* ============ Facility tiles ============ */
-.cats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.2rem;
+.statband .stat__num {
+  color: var(--gold-300);
 }
-.cat {
+.statband .stat__label {
+  color: rgba(244, 241, 233, 0.65);
+}
+
+/* ============ Day timeline（森林一日，取代 4:5 圖磚） ============ */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  max-width: 760px;
+}
+.timeline__item {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1.4rem;
+  padding-bottom: clamp(1.6rem, 3vw, 2.4rem);
+}
+.timeline__item:last-child {
+  padding-bottom: 0;
+}
+.timeline__marker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.timeline__marker::before {
+  content: '';
+  position: absolute;
+  top: 2.6rem;
+  bottom: calc(-1 * clamp(1.6rem, 3vw, 2.4rem));
+  width: 2px;
+  background: var(--sage-300);
+}
+.timeline__item:last-child .timeline__marker::before {
+  display: none;
+}
+.timeline__num {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--sage-300);
+  color: var(--forest-700);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 1;
+}
+.timeline__time {
+  color: var(--moss-600);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.timeline__title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+.timeline__text {
+  margin-top: 0.4rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  max-width: 46ch;
+}
+
+/* ============ CTA band（全幅大圖 + 遮罩，取代深色 news 卡） ============ */
+.cta-band {
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  aspect-ratio: 4 / 5;
-  display: flex;
-  align-items: flex-end;
   isolation: isolate;
+  min-height: 58vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
 }
-.cat .ph {
+.cta-band__media {
   position: absolute;
   inset: 0;
+  z-index: 0;
+}
+.cta-band__media .ph {
+  width: 100%;
+  height: 100%;
   border-radius: 0;
   border: none;
-  z-index: 0;
-  transition: transform 0.8s var(--ease-soft);
 }
-.cat:hover .ph {
-  transform: scale(1.08);
-}
-.cat__scrim {
+.cta-band__scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(to top, rgba(43, 54, 46, 0.7), transparent 60%);
+  background: linear-gradient(
+    to top,
+    rgba(43, 54, 46, 0.85),
+    rgba(43, 54, 46, 0.45)
+  );
 }
-.cat__label {
+.cta-band__inner {
   position: relative;
   z-index: 2;
   color: var(--cream-50);
-  padding: 1.4rem;
-  font-family: var(--font-serif);
-  font-size: 1.45rem;
-  font-weight: 600;
-}
-
-/* ============ CTA banner ============ */
-.news {
-  background: var(--forest-900);
-  color: var(--cream-50);
-  border-radius: var(--radius-lg);
   padding: clamp(2.5rem, 6vw, 5rem);
-  position: relative;
-  overflow: hidden;
+  max-width: 40rem;
 }
-.news h2 {
+.cta-band__inner h2 {
   color: var(--cream-50);
   font-size: clamp(2rem, 4.5vw, 3.2rem);
-  max-width: 18ch;
 }
-.news__leaf {
-  position: absolute;
-  font-size: 14rem;
-  right: -2rem;
-  bottom: -4rem;
-  opacity: 0.07;
-  z-index: 0;
-  pointer-events: none;
+.cta-band__inner p {
+  margin-top: 1rem;
+  color: rgba(244, 241, 233, 0.85);
 }
 
 /* ============ Footer ============ */
@@ -423,32 +513,40 @@
   color: rgba(244, 241, 233, 0.5);
 }
 
-/* ============ Room detail（沿用 .pd 版位） ============ */
-.pd {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: start;
+/* ============ Room detail — 頂部全寬圖庫 ============ */
+.rdetail__lead {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
-.pd__gallery {
-  position: sticky;
-  top: 6rem;
+.rdetail__lead .ph {
+  border-radius: 0;
+  border: none;
 }
-.pd__thumbs {
+.rdetail__thumbs {
   margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.8rem;
 }
-.pd__thumb {
+.rdetail__thumb {
   border-radius: var(--radius-sm);
   overflow: hidden;
   border: 2px solid transparent;
   transition: border-color 0.3s var(--ease-soft);
   cursor: pointer;
 }
-.pd__thumb--active {
+.rdetail__thumb--active {
   border-color: var(--forest-700);
+}
+
+/* ============ Room detail — 下半部 2 欄（資訊 / sticky 訂房卡） ============ */
+.rdetail-body {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
 }
 .pd__cat {
   color: var(--moss-600);
@@ -497,6 +595,30 @@
   border: 1px solid rgba(107, 122, 90, 0.22);
 }
 
+/* ============ Sticky 訂房 / 價格卡（RoomDetail 與 Booking 共用） ============ */
+.bookbox {
+  position: sticky;
+  top: 6rem;
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem;
+  box-shadow: var(--shadow);
+}
+.bookbox__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.1rem;
+  border-bottom: 1px solid rgba(43, 54, 46, 0.12);
+}
+/* 卡內 DatePicker 改為扁平樣式，避免卡中卡 */
+.bookbox .datepick {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
 /* ============ Date picker ============ */
 .datepick {
   background: var(--paper);
@@ -518,13 +640,78 @@
 
 /* ============ Room detail booking block ============ */
 .roomd__book {
-  margin-top: 2rem;
+  margin-top: 1.4rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-/* ============ Booking page ============ */
+/* ============ Related rooms rail（橫向捲動，取代 grid） ============ */
+.rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(280px, 340px);
+  gap: clamp(1.2rem, 2.5vw, 1.8rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+.rail > * {
+  scroll-snap-align: start;
+}
+
+/* ============ Booking flow — 步驟列 ============ */
+.steps {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin: 1rem 0 clamp(1.5rem, 4vw, 2.5rem);
+}
+.step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--ink-faint);
+  font-size: 0.95rem;
+}
+.step__num {
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(107, 122, 90, 0.14);
+  color: var(--ink-faint);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.step--active {
+  color: var(--forest-700);
+  font-weight: 600;
+}
+.step--active .step__num {
+  background: var(--forest-700);
+  color: var(--cream-50);
+}
+.step__sep {
+  width: 1.6rem;
+  height: 1px;
+  background: rgba(43, 54, 46, 0.2);
+}
+
+/* ============ Booking flow — 2 欄（左摘要 / 右表單） ============ */
+.bflow {
+  display: grid;
+  grid-template-columns: 0.9fr 1.4fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+.bflow__summary {
+  position: sticky;
+  top: 6rem;
+}
 .booking__block {
   margin-bottom: 2.5rem;
 }
@@ -538,21 +725,7 @@
   gap: 1rem;
 }
 
-/* ============ Booking summary aside（沿用 .cart 版位） ============ */
-.cart {
-  display: grid;
-  grid-template-columns: 1.5fr 0.9fr;
-  gap: clamp(2rem, 4vw, 3.5rem);
-  align-items: start;
-}
-.cart__summary {
-  position: sticky;
-  top: 6rem;
-  background: var(--paper);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  box-shadow: var(--shadow-sm);
-}
+/* ============ Booking summary ============ */
 .cart__empty {
   text-align: center;
   padding: 5rem 1rem;
@@ -663,13 +836,29 @@
 
 /* ============ Responsive ============ */
 @media (max-width: 900px) {
-  .story,
-  .pd,
-  .cart {
+  .bhero,
+  .feature-row,
+  .statband,
+  .rdetail-body,
+  .bflow {
     grid-template-columns: 1fr;
   }
-  .pd__gallery,
-  .cart__summary {
+  .feature-row--rev .feature-row__media {
+    order: 0;
+  }
+  .searchbar {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 1.5rem;
+  }
+  .searchbar__go {
+    width: 100%;
+  }
+  .statband__stats {
+    justify-content: flex-start;
+  }
+  .bookbox,
+  .bflow__summary {
     position: static;
   }
   .footer__grid {
@@ -683,6 +872,10 @@
   .datepick__row,
   .formgrid {
     grid-template-columns: 1fr;
+  }
+  .timeline__item {
+    grid-template-columns: 3.4rem 1fr;
+    gap: 1rem;
   }
   .footer__grid {
     grid-template-columns: 1fr;
