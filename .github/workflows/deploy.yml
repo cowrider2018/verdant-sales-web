@@ -28,10 +28,22 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build
+      # 各示範站以各自的 base 路徑建置
+      - run: npm run build:gallery
+      - run: npm run build:sales
+      - run: npm run build:booking
 
-      # SPA 路由 fallback:讓直接造訪 /products 等網址也能載入
-      - run: cp dist/index.html dist/404.html
+      # 組裝單一 dist:展示廊放根,兩個示範站放各自子資料夾
+      # gallery → /、sales-web → /sales-web、booking-web → /booking-web
+      - name: Assemble site
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          cp -r examples/gallery/dist/. dist/
+          mkdir -p dist/sales-web
+          cp -r examples/sales-web/dist/. dist/sales-web/
+          mkdir -p dist/booking-web
+          cp -r examples/booking-web/dist/. dist/booking-web/
 
       - uses: actions/configure-pages@v5
 

@@ -1,19 +1,21 @@
 {
-  "name": "verdant-forest-shop",
+  "name": "verdant-monorepo",
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "森林風格店商網站前端 — 動畫豐富、中低飽和度綠棕色系",
+  "description": "森林風格元件庫（@verdant/ui）與示範網頁 monorepo — 電商站、旅館預約站、元件展示廊",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "framer-motion": "^11.3.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.0"
+    "dev:gallery": "npm -w examples/gallery run dev",
+    "dev:sales": "npm -w examples/sales-web run dev",
+    "dev:booking": "npm -w examples/booking-web run dev",
+    "build:gallery": "npm -w examples/gallery run build",
+    "build:sales": "npm -w examples/sales-web run build",
+    "build:booking": "npm -w examples/booking-web run build",
+    "build": "npm run build:gallery && npm run build:sales && npm run build:booking"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",

@@ -1,39 +1,60 @@
-# Verdant · 森林選物
+# Verdant · 森林風格元件庫與示範網頁
 
-視覺動畫豐富、中低飽和度綠／棕森林風格的店商網站前端雛形。所有圖片／影片皆為「標示尺寸的佔位符」，方便日後替換真實素材。
+一個 shadcn-ui 風格的 monorepo：一套可重用的森林風格 React 元件庫（`@verdant/ui`），
+搭配多個各自獨立、各自部署到 GitHub Pages 子路徑的示範網頁。視覺動畫豐富、中低飽和度綠／棕色系，
+所有圖片／影片皆為「標示尺寸的佔位符」，方便日後替換真實素材。
+
+## 線上預覽
+
+| 網頁 | 說明 | 網址 |
+| --- | --- | --- |
+| 展示廊 | 元件庫總覽 + 連到各示範站 | <https://cowrider2018.github.io/verdant-web-ui/> |
+| 電商站 | 森林選物電商（首頁／選物／商品詳情／購物車） | <https://cowrider2018.github.io/verdant-web-ui/sales-web> |
+| 旅館預約站 | 森林旅宿線上預約（房型／詳情／日期選擇／結帳） | <https://cowrider2018.github.io/verdant-web-ui/booking-web> |
+
+## 結構
+
+```
+verdant-web-ui/
+├─ packages/
+│  └─ ui/            @verdant/ui — 元件庫（元件、設計 tokens、基底樣式）
+└─ examples/
+   ├─ gallery/       展示廊根頁     base /verdant-web-ui/
+   ├─ sales-web/     電商示範站     base /verdant-web-ui/sales-web/
+   └─ booking-web/   旅館預約示範站  base /verdant-web-ui/booking-web/
+```
+
+元件庫以 **npm workspaces** 直接被各示範站引用原始碼（`import { ... } from '@verdant/ui'`），
+無需獨立建置步驟，Vite 即時編譯。各示範站採 **HashRouter**，確保在 GitHub Pages 子路徑下深層連結可用。
 
 ## 技術棧
 
 - **Vite + React** — 建置與開發
-- **React Router** — 四頁路由
+- **React Router（HashRouter）** — 各示範站路由
 - **Framer Motion** — 全站動畫
+- **npm workspaces** — monorepo 套件管理
 
 ## 快速開始
 
 ```bash
-npm install
-npm run dev      # 本機開發
-npm run build    # 正式打包
-npm run preview  # 預覽打包結果
+npm install            # 根目錄安裝（建立 workspaces 連結）
+
+npm run dev:gallery    # 開發 — 展示廊
+npm run dev:sales      # 開發 — 電商站
+npm run dev:booking    # 開發 — 旅館預約站
+
+npm run build          # 建置全部三個示範站
 ```
 
-## 頁面
+## 元件庫
 
-- **首頁** — 影片 Hero、特色商品、視差品牌故事、分類、電子報
-- **選物** — 分類篩選 + 動畫商品網格
-- **商品詳情** — 圖片藝廊、規格、加入購物車
-- **購物車** — 品項增減、金額摘要（localStorage 持久化）
+詳見 [`packages/ui/README.md`](packages/ui/README.md)。提供 `MediaPlaceholder`、`MagneticButton`、
+`Parallax`、`Reveal`、`SectionDivider`、`SunFlare`、`LeafMark` 與 `formatPrice`，以及 `theme.css`／`primitives.css`。
 
-## 特色
+## 部署
 
-- **MediaPlaceholder** — 全站唯一的尺寸佔位符元件，以 `aspect-ratio` 鎖版位避免 CLS，明確標示 `寬×高`
-- **SunFlare** — 跟隨游標偏轉的彩色太陽折射光暈（鏡頭眩光），僅在首頁顯示
-- 捲動進場、多層視差、商品卡 3D 傾斜、磁吸 CTA、頁面轉場、購物車徽章動畫
-- 尊重 `prefers-reduced-motion`，並對觸控裝置停用滑鼠特效
-
-## 色票（中低飽和森林）
-
-深森林綠 `#2B362E`、苔綠 `#6B7A5A`、樹皮棕 `#4A3C30`、麻色 `#A8927A`、米白底 `#EDE8DD`、低調金 `#B89B6E`。
+推上 `main` 後，GitHub Actions（[.github/workflows/deploy.yml](.github/workflows/deploy.yml)）會：
+分別以各自的 `base` 建置三個示範站 → 組裝成單一 `dist`（展示廊放根、兩站放各自子資料夾）→ 發佈到 GitHub Pages。
 
 ## 說明
 
