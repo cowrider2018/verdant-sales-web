@@ -10,7 +10,6 @@ import {
   Field,
   DateField,
   Select,
-  Timeline,
 } from '@verdant/ui'
 
 const base = import.meta.env.BASE_URL
@@ -234,15 +233,6 @@ export default function App() {
                   ]}
                 />
               </Field>
-            </Reveal>
-            <Reveal className="g-demo__cell" delay={0.16}>
-              <Timeline
-                items={[
-                  { time: '09:00', title: '需求訪談', text: '釐清品牌定位與專案目標。' },
-                  { time: '14:00', title: '視覺提案', text: '提供風格與版型方向。' },
-                  { time: '18:00', title: '交付上線', text: '元件整合與部署驗收。' },
-                ]}
-              />
             </Reveal>
           </div>
         </div>
