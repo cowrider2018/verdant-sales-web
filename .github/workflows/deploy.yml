@@ -32,9 +32,10 @@ jobs:
       - run: npm run build:gallery
       - run: npm run build:sales
       - run: npm run build:booking
+      - run: npm run build:portfolio
 
-      # 組裝單一 dist:展示廊放根,兩個示範站放各自子資料夾
-      # gallery → /、sales-web → /sales-web、booking-web → /booking-web
+      # 組裝單一 dist:展示廊放根,各示範站放各自子資料夾
+      # gallery → /、sales-web → /sales-web、booking-web → /booking-web、portfolio-web → /portfolio-web
       - name: Assemble site
         run: |
           rm -rf dist
@@ -44,6 +45,8 @@ jobs:
           cp -r examples/sales-web/dist/. dist/sales-web/
           mkdir -p dist/booking-web
           cp -r examples/booking-web/dist/. dist/booking-web/
+          mkdir -p dist/portfolio-web
+          cp -r examples/portfolio-web/dist/. dist/portfolio-web/
 
       - uses: actions/configure-pages@v5
 

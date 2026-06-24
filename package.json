@@ -12,10 +12,12 @@
     "dev:gallery": "npm -w examples/gallery run dev",
     "dev:sales": "npm -w examples/sales-web run dev",
     "dev:booking": "npm -w examples/booking-web run dev",
+    "dev:portfolio": "npm -w examples/portfolio-web run dev",
     "build:gallery": "npm -w examples/gallery run build",
     "build:sales": "npm -w examples/sales-web run build",
     "build:booking": "npm -w examples/booking-web run build",
-    "build": "npm run build:gallery && npm run build:sales && npm run build:booking"
+    "build:portfolio": "npm -w examples/portfolio-web run build",
+    "build": "npm run build:gallery && npm run build:sales && npm run build:booking && npm run build:portfolio"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",

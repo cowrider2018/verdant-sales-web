@@ -11,6 +11,7 @@ import {
 const base = import.meta.env.BASE_URL
 const SALES_URL = `${base}sales-web/`
 const BOOKING_URL = `${base}booking-web/`
+const PORTFOLIO_URL = `${base}portfolio-web/`
 
 const components = [
   { name: 'MediaPlaceholder', desc: '標尺寸的圖片／影片佔位符，以 aspect-ratio 鎖版位避免 CLS。' },
@@ -38,6 +39,13 @@ const examples = [
     url: BOOKING_URL,
     label: '旅館預約示範站',
   },
+  {
+    title: '林深 設計作品集',
+    tag: '個人形象',
+    desc: '創意設計師的單頁形象站：Hero、跑馬燈、作品傾斜卡、數字計數與聯絡表單。',
+    url: PORTFOLIO_URL,
+    label: '個人形象示範站',
+  },
 ]
 
 export default function App() {
@@ -53,6 +61,7 @@ export default function App() {
           <nav className="g-nav__links">
             <a className="nav__link" href={SALES_URL}>電商站</a>
             <a className="nav__link" href={BOOKING_URL}>旅宿站</a>
+            <a className="nav__link" href={PORTFOLIO_URL}>形象站</a>
           </nav>
         </div>
       </header>
