@@ -247,6 +247,25 @@
   padding: 0.18em 0.7em;
   border-radius: 999px;
 }
+/* Marquee：比照 portfolio 的關鍵字帶（深色森林底＋襯線字＋金色葉標） */
+.cp-marquee {
+  width: 100%;
+  padding-block: 1.1rem;
+  background: var(--forest-800);
+  border-radius: var(--radius-sm);
+}
+.cp-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--sage-200);
+}
+.cp-marquee__item svg {
+  color: var(--gold-300);
+}
+
 /* Parallax：兩層真實 Parallax 疊放，移動頁面捲動時上下視差位移 */
 .cp-parallax {
   background: var(--cream-100);

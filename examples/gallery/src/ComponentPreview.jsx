@@ -91,12 +91,16 @@ const previews = {
     </div>
   ),
   Marquee: () => (
-    <Marquee speed={12}>
-      <span className="chip">品牌設計</span>
-      <span className="chip">攝影</span>
-      <span className="chip">網站開發</span>
-      <span className="chip">插畫</span>
-    </Marquee>
+    <div className="cp-marquee">
+      <Marquee speed={32} gap="2.5rem">
+        {['品牌識別', '視覺系統', 'Art Direction', '網站設計', '插畫', 'Motion'].map((k) => (
+          <span key={k} className="cp-marquee__item">
+            {k}
+            <LeafMark size={16} />
+          </span>
+        ))}
+      </Marquee>
+    </div>
   ),
   TiltCard: () => (
     <TiltCard glare className="cp-tilt">
