@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
   MediaPlaceholder,
   MagneticButton,
@@ -11,6 +11,7 @@ import {
   DateField,
   Select,
 } from '@verdant/ui'
+import ComponentPreviewPopup from './ComponentPreview.jsx'
 
 const base = import.meta.env.BASE_URL
 const SALES_URL = `${base}sales-web/`
@@ -67,6 +68,28 @@ const examples = [
 export default function App() {
   const [date, setDate] = useState('')
   const [service, setService] = useState('')
+  // 目前開啟預覽的元件卡：{ item, x, y }，x/y 為點擊時的游標視窗座標
+  const [active, setActive] = useState(null)
+
+  // 單擊卡片：再點同一張則關閉，否則於游標位置開啟
+  const openPreview = (e, item) =>
+    setActive((prev) =>
+      prev && prev.item.name === item.name
+        ? null
+        : { item, x: e.clientX, y: e.clientY },
+    )
+
+  // 鍵盤開啟：以卡片中心為座標
+  const handleCardKey = (e, item) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return
+    e.preventDefault()
+    const r = e.currentTarget.getBoundingClientRect()
+    setActive((prev) =>
+      prev && prev.item.name === item.name
+        ? null
+        : { item, x: r.left + r.width / 2, y: r.top + r.height / 2 },
+    )
+  }
 
   return (
     <>
@@ -187,7 +210,14 @@ export default function App() {
         <div className="grid grid--products">
           {components.map((c, i) => (
             <Reveal key={c.name} delay={(i % 4) * 0.06}>
-              <div className="g-comp">
+              <div
+                className={`g-comp ${active?.item.name === c.name ? 'g-comp--active' : ''}`.trim()}
+                role="button"
+                tabIndex={0}
+                aria-haspopup="dialog"
+                onClick={(e) => openPreview(e, c)}
+                onKeyDown={(e) => handleCardKey(e, c)}
+              >
                 <code className="g-comp__name">{c.name}</code>
                 <p className="g-comp__desc">{c.desc}</p>
               </div>
@@ -251,6 +281,18 @@ export default function App() {
           </p>
         </div>
       </footer>
+
+      {/* ===== Component preview popup ===== */}
+      <AnimatePresence>
+        {active && (
+          <ComponentPreviewPopup
+            key={active.item.name}
+            item={active.item}
+            origin={{ x: active.x, y: active.y }}
+            onClose={() => setActive(null)}
+          />
+        )}
+      </AnimatePresence>
     </>
   )
 }
