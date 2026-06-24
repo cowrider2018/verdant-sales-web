@@ -311,70 +311,6 @@
   letter-spacing: 0.04em;
 }
 
-/* ============ Day timeline（森林一日，取代 4:5 圖磚） ============ */
-.timeline {
-  display: flex;
-  flex-direction: column;
-  max-width: 760px;
-}
-.timeline__item {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  gap: 1.4rem;
-  padding-bottom: clamp(1.6rem, 3vw, 2.4rem);
-}
-.timeline__item:last-child {
-  padding-bottom: 0;
-}
-.timeline__marker {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-.timeline__marker::before {
-  content: '';
-  position: absolute;
-  top: 2.6rem;
-  bottom: calc(-1 * clamp(1.6rem, 3vw, 2.4rem));
-  width: 2px;
-  background: var(--sage-300);
-}
-.timeline__item:last-child .timeline__marker::before {
-  display: none;
-}
-.timeline__num {
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 50%;
-  background: var(--paper);
-  border: 1px solid var(--sage-300);
-  color: var(--forest-700);
-  font-family: var(--font-serif);
-  font-weight: 600;
-  display: grid;
-  place-items: center;
-  position: relative;
-  z-index: 1;
-}
-.timeline__time {
-  color: var(--moss-600);
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.timeline__title {
-  font-family: var(--font-serif);
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-top: 0.2rem;
-}
-.timeline__text {
-  margin-top: 0.4rem;
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-  max-width: 46ch;
-}
-
 /* ============ CTA band（全幅大圖 + 遮罩，取代深色 news 卡） ============ */
 .cta-band {
   position: relative;
@@ -850,10 +786,6 @@
   .datepick__row,
   .formgrid {
     grid-template-columns: 1fr;
-  }
-  .timeline__item {
-    grid-template-columns: 3.4rem 1fr;
-    gap: 1rem;
   }
   .footer__grid {
     grid-template-columns: 1fr;

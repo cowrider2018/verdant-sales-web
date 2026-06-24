@@ -10,6 +10,7 @@ import {
   Field,
   DateField,
   Select,
+  Timeline,
 } from '@verdant/ui'
 
 const base = import.meta.env.BASE_URL
@@ -31,6 +32,7 @@ const components = [
   { name: 'TiltCard', desc: '隨游標傾斜的 3D 卡片，可選炫光。' },
   { name: 'AnimatedCounter', desc: '進入視窗時數字滾動到目標值的計數器。' },
   { name: 'Avatar', desc: '附葉片裝飾與外環的圓形頭像。' },
+  { name: 'Timeline', desc: '編號節點的垂直時間軸，進場依序淡入。' },
   { name: 'Field', desc: '標籤＋輸入框的表單欄位容器。' },
   { name: 'TextInput', desc: '套用森林主題樣式的文字輸入框。' },
   { name: 'DateField', desc: '自製日期選擇器，附森林主題小日曆面板。' },
@@ -232,6 +234,15 @@ export default function App() {
                   ]}
                 />
               </Field>
+            </Reveal>
+            <Reveal className="g-demo__cell" delay={0.16}>
+              <Timeline
+                items={[
+                  { time: '09:00', title: '需求訪談', text: '釐清品牌定位與專案目標。' },
+                  { time: '14:00', title: '視覺提案', text: '提供風格與版型方向。' },
+                  { time: '18:00', title: '交付上線', text: '元件整合與部署驗收。' },
+                ]}
+              />
             </Reveal>
           </div>
         </div>

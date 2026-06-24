@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
 import {
   MediaPlaceholder,
   MagneticButton,
@@ -7,6 +7,7 @@ import {
   Reveal,
   SunFlare,
   SectionDivider,
+  Timeline,
   formatPrice,
 } from '@verdant/ui'
 import DatePicker from '../components/DatePicker.jsx'
@@ -142,33 +143,7 @@ export default function Home() {
           </Reveal>
         </div>
 
-        <motion.div
-          className="timeline"
-          variants={{ show: { transition: { staggerChildren: 0.08 } } }}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
-        >
-          {schedule.map((s, i) => (
-            <motion.div
-              key={s.title}
-              className="timeline__item"
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-              }}
-            >
-              <div className="timeline__marker">
-                <span className="timeline__num">{i + 1}</span>
-              </div>
-              <div className="timeline__body">
-                <span className="timeline__time">{s.time}</span>
-                <h3 className="timeline__title">{s.title}</h3>
-                <p className="timeline__text">{s.text}</p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <Timeline items={schedule} />
       </section>
 
       {/* ===== CTA band ===== */}

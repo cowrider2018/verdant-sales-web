@@ -12,6 +12,7 @@ export { default as Marquee } from './components/Marquee.jsx'
 export { default as TiltCard } from './components/TiltCard.jsx'
 export { default as AnimatedCounter } from './components/AnimatedCounter.jsx'
 export { default as Avatar } from './components/Avatar.jsx'
+export { default as Timeline } from './components/Timeline.jsx'
 
 export { default as Field } from './components/Field.jsx'
 export { default as TextInput } from './components/TextInput.jsx'
