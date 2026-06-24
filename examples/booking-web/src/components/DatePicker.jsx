@@ -54,14 +54,12 @@ export default function DatePicker({
         <Field label="入住人數">
           <Select
             value={guests}
-            onChange={(e) => onChange({ guests: Number(e.target.value) })}
-          >
-            {Array.from({ length: maxGuests }, (_, i) => i + 1).map((n) => (
-              <option key={n} value={n}>
-                {n} 人
-              </option>
-            ))}
-          </Select>
+            onChange={(v) => onChange({ guests: Number(v) })}
+            options={Array.from({ length: maxGuests }, (_, i) => ({
+              value: i + 1,
+              label: `${i + 1} 人`,
+            }))}
+          />
         </Field>
       </div>
 

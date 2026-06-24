@@ -54,16 +54,11 @@ function ContactForm() {
         <TextInput type="email" name="email" placeholder="you@example.com" required />
       </Field>
       <Field label="合作類型" full>
-        <Select name="service" defaultValue="">
-          <option value="" disabled>
-            請選擇服務項目
-          </option>
-          {services.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </Select>
+        <Select
+          name="service"
+          placeholder="請選擇服務項目"
+          options={services.map((s) => ({ value: s, label: s }))}
+        />
       </Field>
       <Field label="聊聊你的專案" full>
         <Textarea name="message" rows={4} placeholder="想做什麼？預算與時程大概是？" />
