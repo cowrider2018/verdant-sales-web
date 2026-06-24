@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   MediaPlaceholder,
@@ -6,6 +7,9 @@ import {
   SectionDivider,
   Parallax,
   LeafMark,
+  Field,
+  DateField,
+  Select,
 } from '@verdant/ui'
 
 const base = import.meta.env.BASE_URL
@@ -21,6 +25,17 @@ const components = [
   { name: 'SectionDivider', desc: '葉脈風格的 SVG 區塊分隔線。' },
   { name: 'SunFlare', desc: '跟隨游標偏轉的太陽折射光暈（鏡頭眩光）。' },
   { name: 'LeafMark', desc: '通用葉片標誌，外層自行包品牌字樣。' },
+  { name: 'GrainOverlay', desc: '覆蓋全頁的細顆粒雜訊紋理，增添底片質感。' },
+  { name: 'FloatingLeaves', desc: '緩緩飄落的葉片粒子背景。' },
+  { name: 'Marquee', desc: '無限水平捲動的跑馬燈橫幅。' },
+  { name: 'TiltCard', desc: '隨游標傾斜的 3D 卡片，可選炫光。' },
+  { name: 'AnimatedCounter', desc: '進入視窗時數字滾動到目標值的計數器。' },
+  { name: 'Avatar', desc: '附葉片裝飾與外環的圓形頭像。' },
+  { name: 'Field', desc: '標籤＋輸入框的表單欄位容器。' },
+  { name: 'TextInput', desc: '套用森林主題樣式的文字輸入框。' },
+  { name: 'DateField', desc: '自製日期選擇器，附森林主題小日曆面板。' },
+  { name: 'Select', desc: '自製下拉選單，選項面板完整套用森林主題。' },
+  { name: 'Textarea', desc: '可垂直縮放的多行文字輸入框。' },
   { name: 'formatPrice', desc: '以新台幣格式化金額的工具函式。' },
 ]
 
@@ -49,6 +64,9 @@ const examples = [
 ]
 
 export default function App() {
+  const [date, setDate] = useState('')
+  const [service, setService] = useState('')
+
   return (
     <>
       {/* ===== Header ===== */}
@@ -199,6 +217,22 @@ export default function App() {
                 <LeafMark size={40} />
               </div>
             </div>
+            <Reveal className="g-demo__cell g-demo__cell--form" delay={0.12}>
+              <Field label="自訂日期選擇器">
+                <DateField value={date} onChange={setDate} />
+              </Field>
+              <Field label="自訂下拉選單">
+                <Select
+                  value={service}
+                  onChange={setService}
+                  options={[
+                    { value: 'design', label: '品牌設計' },
+                    { value: 'web', label: '網站開發' },
+                    { value: 'photo', label: '攝影' },
+                  ]}
+                />
+              </Field>
+            </Reveal>
           </div>
         </div>
       </section>

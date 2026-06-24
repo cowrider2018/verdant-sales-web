@@ -177,6 +177,12 @@
   align-items: center;
   justify-content: center;
 }
+.g-demo__cell--form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-self: stretch;
+}
 
 /* ============ Footer ============ */
 .g-footer {
